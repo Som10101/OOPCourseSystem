@@ -1,10 +1,15 @@
 
 public abstract class User 
 {
-	String username;
-	String password;
-	String userType;
-	String name;
+	
+	EnrollmentManager enrollment;
+	
+    public User(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.enrollment = new EnrollmentManager();
+    }
 	
 	boolean loginVerification(String pw)
 	{
@@ -16,5 +21,41 @@ public abstract class User
 	
 	abstract void viewCourses();
 	
+	String username;
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	String password;
+	String userType;
+	String name;
 	
 }

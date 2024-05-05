@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class EnrollmentManager 
 {
+	public static EnrollmentManager eM = null;
 	ArrayList<Course> CourseOffering;
 	
 	public void addCourse(Course c)
@@ -15,12 +16,23 @@ public class EnrollmentManager
 		{
 			if(CourseOffering.get(i).equals(c))
 			{
-				CourseOffering.remove(i);
+				Course cl = CourseOffering.remove(i);
+				cl.clearClass();
 				return 0;
 			}
 		}
 		return -1;
 	}
+	
+	public static EnrollmentManager getManager()
+	{
+		if(eM == null)
+		{
+			eM = new EnrollmentManager();
+		}
+		return eM;
+	}
+	
 	
 	public void printCourseOptions()
 	{

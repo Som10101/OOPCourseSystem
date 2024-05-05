@@ -5,8 +5,36 @@ public class Course
 	private String courseName;
 	private String courseDescription;
 	private String courseCode;
-	private Professor Professor;
+	private Professor professor;
 	private ArrayList<Pair> studentList;
+	
+	Course(String cN, String cD, String cC, Professor p)
+	{
+		this.courseName = cN;
+		this.courseCode = cC;
+		this.courseDescription = cD;
+		this.professor = p;
+		this.studentList = new ArrayList<Pair>();
+				
+	}
+	
+	public void clearClass()
+	{
+		for(int i = 0; i < studentList.size(); i++)
+		{
+			Student s = studentList.get(i).student;
+			s.unEnroll(this);
+		}
+		professor.leaveCourse(this);
+		professor = null;
+		studentList.clear();
+	}
+	public void printCourse()
+	{
+		System.out.println("-------------------------------------");
+		System.out.println(courseName + "       " + courseCode);
+
+	}
 	
 	public int addStudent(Student s)
 	{
@@ -36,6 +64,19 @@ public class Course
 		return null;
 	}
 
+	public int getGrade(Student s)
+	{
+		for(int i = 0; i < studentList.size(); i++)
+		{
+			if(studentList.get(i).student.equals(s))
+			{
+				return studentList.get(i).grade;
+				
+			}
+		}
+		return -1;
+	}
+	
 	public int setGrade(Student s, int g)
 	{
 		for(int i = 0; i < studentList.size(); i++)
@@ -74,11 +115,11 @@ public class Course
 	}
 
 	public User getProfessor() {
-		return Professor;
+		return professor;
 	}
 
-	public void setProfessor(Professor professor) {
-		Professor = professor;
+	public void setProfessor(Professor p) {
+		this.professor = p;
 	}
 	
 }
