@@ -67,9 +67,13 @@ public class Main
 	
 	static User createUser()
 	{
+		System.out.println("------Create New User------");
 		User u = null;
+		System.out.print("Name: ");
 		String name = s.nextLine();
+		System.out.print("Username: ");
 		String uN= s.nextLine();
+		System.out.print("Password: ");
 		String pW= s.nextLine();
 
 		int choice = 0;
@@ -147,6 +151,7 @@ public class Main
 		int choice = 0;
 		do
 		{
+			System.out.println();
 			System.out.println("(1) View Students");
 			System.out.println("(2) Change Student Grade");
 			System.out.println("(3) Exit");
@@ -200,6 +205,7 @@ public class Main
 		int choice = 0;
 		do
 		{
+			System.out.println();
 			System.out.println("(1) View All Courses");
 			System.out.println("(2) Enroll in Course by Code");
 			System.out.println("(3) Enroll in Course by Name");
@@ -314,6 +320,7 @@ public class Main
 		int choice = 0;
 		do
 		{
+			System.out.println();
 			System.out.println("(1) View Courses");
 			System.out.println("(2) Select Course by Code");
 			System.out.println("(3) Select Course by Name");
@@ -383,6 +390,7 @@ public class Main
 		int choice = 0;
 		do
 		{
+			System.out.println();
 			System.out.println("(1) Add Course");
 			System.out.println("(2) Delete Course by Code");
 			System.out.println("(3) Delete Course by Name");
