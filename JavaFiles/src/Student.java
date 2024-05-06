@@ -9,8 +9,12 @@ public class Student extends User
         coursesEnrolled = new ArrayList<Course>();
         this.userType = "Student";
     }
-	
-	void viewCourses() 
+    public void viewCourses() 
+    {
+        enrollment.printCourseOptions();
+    }
+    
+	void viewEnrolledCourses() 
 	{
 		for(int i = 0; i < coursesEnrolled.size(); i++)
 		{
@@ -36,6 +40,8 @@ public class Student extends User
 	}
 	void enroll(Course c)
 	{
+		if(coursesEnrolled.contains(c))
+			return;
 		c.addStudent(this);
 		coursesEnrolled.add(c);
 	}

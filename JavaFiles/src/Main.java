@@ -11,26 +11,86 @@ public class Main
 		users = new ArrayList<User>();
 		E = EnrollmentManager.getManager();
 		s = new Scanner(System.in);
-		Student s = new Student("Joe","h","h");
-		Professor p = new Professor("Bob","p","w");
-		Admin a = new Admin("Barb","pe","wa");
-		users.add(a);
-		users.add(p);
-		users.add(s);
-		a.addCourse("Bible study", "Learning", "HX3", p);
-		s.enroll(E.getCourseByName("Bible study"));
-		System.out.println("Hello");
-		menu(p);
+		createPreexistingData();
+		
+			int choice = 0;
+			do
+			{
+				System.out.println("(1) Login");
+				System.out.println("(2) Create Account");
+				System.out.println("(3) Exit");
+				System.out.println();
+				String c = s.nextLine();
+				try {
+				    choice = 
+				    		
+				    		Integer.parseInt(c);
+				} catch (NumberFormatException e) {
+				    choice = -1;
+				}
+				switch(choice)
+				{
+				//Login
+				case(1):
+					User u = login();
+					if(u == null)
+					{
+						continue;
+					}
+					else if(u.getUserType().equals("Admin"))
+					{
+						menu((Admin)u);
+					}
+					else if(u.getUserType().equals("Professor"))
+					{
+						menu((Professor)u);
+					}
+					else if(u.getUserType().equals("Student"))
+					{
+						menu((Student)u);
+					}
+					break;
+				case(2):
+					createUser();
+					break;
+				case(3):
+					System.out.println("Good Bye! Thank You.");
+					break;
+				default:
+					System.out.println("Please enter valid option.");
+					break;
+				}
+			}
+			while(choice != 3);
 		
 	}
 	
-	User createUser(int c)
+	static User createUser()
 	{
 		User u = null;
-		String pW= "";
-		String uN= "";
-		String name = "";
-		switch(c)
+		String name = s.nextLine();
+		String uN= s.nextLine();
+		String pW= s.nextLine();
+
+		int choice = 0;
+		do
+		{
+			System.out.println("(1) Admin");
+			System.out.println("(2) Professor");
+			System.out.println("(3) Student");
+			System.out.println();
+			String c = s.nextLine();
+			try {
+			    choice = Integer.parseInt(c);
+			} catch (NumberFormatException e) {
+			    choice = -1;
+			    System.out.println("Please select a number 1-3.");
+			}
+		}
+		while(choice > 3 || choice < 1);
+		
+		
+		switch(choice)
 		{
 		case(1):
 			u = new Admin(name,uN,pW);
@@ -48,10 +108,12 @@ public class Main
 		
 	}
 
-	User login()
+	static User login()
 	{
+		System.out.println("*********LOGIN***********");
 		User u = null;
-		String userName = "";
+		System.out.print("Please enter Username: ");
+		String userName = s.nextLine();
 		for(int i = 0; i < users.size(); i++)
 		{
 			if(users.get(i).getUsername().equals(userName))
@@ -60,12 +122,22 @@ public class Main
 		
 		if(u == null)
 				return null;
-		
-		String password = "";
+		System.out.print("Please enter Password: ");
+		String password = s.nextLine();
 		if(u.loginVerification(password))
+		{
+			System.out.println();
+			System.out.println("Welcome " + u.getName());
+			System.out.println();
 			return u;
+			
+		}
 		else
+		{
+			System.out.println("Incorrect password.");
 			return null;
+			
+		}
 	}
 	static void selectedCourse(Professor p, Course course)
 	{
@@ -120,6 +192,120 @@ public class Main
 			}
 		}
 		while(choice != 3);
+	}
+	
+	static void menu(Student stu)
+	{
+		
+		int choice = 0;
+		do
+		{
+			System.out.println("(1) View All Courses");
+			System.out.println("(2) Enroll in Course by Code");
+			System.out.println("(3) Enroll in Course by Name");
+			System.out.println("(4) View Enrolled Courses");
+			System.out.println("(5) Un-enroll in Course by Code");
+			System.out.println("(6) Un-enroll in Course by Name");
+			System.out.println("(7) Log Out");
+			String c = s.nextLine();
+			try {
+			    choice = 
+			    		
+			    		Integer.parseInt(c);
+			} catch (NumberFormatException e) {
+			    choice = -1;
+			}
+			switch(choice)
+			{
+			//View courses
+			case(1):
+				stu.viewCourses();
+				break;
+				//select course by code
+			case(2):
+				System.out.print("Please enter code:");
+				String code = "";
+				code = s.nextLine();
+				Course cc = E.getCourseByCode(code);
+				if(cc != null)
+				{
+					stu.enroll(cc);
+					System.out.println("Sucessfully enrolled!");
+				}
+				else
+				{
+					System.out.println("Course not found.");
+				}
+
+				break;
+			//select course by name
+			case(3):
+				System.out.print("Please enter name:");
+				String name = "";
+				name = s.nextLine();
+				Course cn = E.getCourseByName(name);
+				if(cn != null)
+				{
+					stu.enroll(cn);
+					System.out.println("Sucessfully enrolled!");
+				}
+				else
+				{
+					System.out.println("Course not found.");
+				}
+
+				break;
+			case(4):
+				stu.viewEnrolledCourses();
+				break;
+			case(5):
+				System.out.print("Please enter code:");
+				String uCode = "";
+				uCode = s.nextLine();
+				Course uc = E.getCourseByCode(uCode);
+				if(uc != null)
+				{
+					if(stu.unEnroll(uc) == 0)
+						System.out.println("Course Unenrolled from.");
+					else
+						System.out.println("Error- Student not enrolled in course.");
+				}
+				else
+				{
+					System.out.println("Course not found.");
+				}
+
+				break;
+			//select course by name
+			case(6):
+				System.out.print("Please enter name:");
+				String uName = "";
+				uName = s.nextLine();
+				Course un = E.getCourseByName(uName);
+				if(un != null)
+				{
+					if(stu.unEnroll(un) == 0)
+						System.out.println("Course Unenrolled from.");
+					else
+						System.out.println("Error- Student not enrolled in course.");
+				}
+				else
+				{
+					System.out.println("Course not found.");
+				}
+	
+				break;
+			case(7):
+				System.out.println("Logging out... Thank you!");
+				break;
+			
+			default:
+				System.out.println("Please enter valid option.");
+				break;
+			}
+		}
+		while(choice != 7);
+		
 	}
 	
 	static void menu(Professor p)
@@ -193,15 +379,16 @@ public class Main
 	
 	static void menu(Admin a)
 	{
-		System.out.println("(1) Add Course");
-		System.out.println("(2) Delete Course by Code");
-		System.out.println("(3) Delete Course by Name");
-		System.out.println("(4) View All Courses");
-		System.out.println("(5) View All Courses");
-		System.out.println("(6) Log Out");
+
 		int choice = 0;
 		do
 		{
+			System.out.println("(1) Add Course");
+			System.out.println("(2) Delete Course by Code");
+			System.out.println("(3) Delete Course by Name");
+			System.out.println("(4) View All Courses");
+			System.out.println("(5) View All Professors");
+			System.out.println("(6) Log Out");
 			String c = s.nextLine();
 			try {
 			    choice = 
@@ -287,7 +474,47 @@ public class Main
 		}
 	}
 	
-	
+	static void createPreexistingData() {
+
+        Professor prof1 = new Professor("Alice", "alice01", "abc123");
+        Professor prof2 = new Professor("Bob", "bob02", "def248");
+        Professor prof3 = new Professor("Charlie", "charlie03", "qwe456");
+
+        Admin admin = new Admin("Dana", "dana05", "admin123");
+
+        Student student1 = new Student("Eve", "eve1", "asd789");
+        Student student2 = new Student("Frank", "frank2", "password");
+        Student student3 = new Student("Grace", "grace1", "password2");
+        Student student4 = new Student("Heidi", "heidi2", "password3");
+        Student student5 = new Student("Ivan", "ivan5", "password4");
+
+		Course c1 = new Course("Algorithms", "Learn about basic algorithms", "MATH101", prof1);
+		Course c2 = new Course("Physics", "Intro to Physics", "PHYS101", prof2);
+		Course c3 = new Course("Philosophy", "Intro to Philosophy", "PHIL101", prof3);
+
+
+		E.addCourse(c1);
+		E.addCourse(c2);
+		E.addCourse(c3);
+
+		student1.enroll(c1);
+		student1.enroll(c3);
+		student2.enroll(c2);
+		student3.enroll(c3);
+		student4.enroll(c1);
+		student5.enroll(c2);
+		
+
+        users.add(prof1);
+        users.add(prof2);
+        users.add(prof3);
+        users.add(admin);
+        users.add(student1);
+        users.add(student2);
+        users.add(student3);
+        users.add(student4);
+        users.add(student5);
+    }
 	
 
 }

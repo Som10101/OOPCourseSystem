@@ -84,6 +84,10 @@ public class Course
 		}
 		return null;
 	}
+	public ArrayList<Pair> getStudents(){
+		return studentList;
+	}
+
 	
 	public int getGrade(Student s)
 	{
@@ -138,6 +142,7 @@ public class Course
 	public User getProfessor() {
 		return professor;
 	}
+
 
 	public void setProfessor(Professor p) {
 		this.professor = p;

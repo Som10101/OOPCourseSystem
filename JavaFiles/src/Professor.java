@@ -61,16 +61,28 @@ public class Professor extends User
 	
 	
 	void viewCourses() 
-	{
-		System.out.println("Implement pls");
-		// TODO Auto-generated method stub
-		
+	{	
+
+		System.out.println("Courses taught by this professor");
+		System.out.println("-------------------------------------");
+		for(int i = 0; i < coursesTaught.size(); i++){
+			
+			System.out.println(coursesTaught.get(i).getCourseName());
+
+		}
 	}
 	
 	void viewStudents(Course C)
 	{
-		
+		ArrayList <Pair> temp=C.getStudents();
+		System.out.println("The students of this course are:");
+		System.out.println("----------------------------------");
+		for (int i=0;i<temp.size();i++){
+			System.out.println(temp.get(i).getStudent().getName());
+		}
+			
 	}
+	
 	
 	
 

@@ -22,4 +22,9 @@ public class Pair
 					
 	}
 	
+	public Student getStudent(){
+		return student;
+	}
+
+	
 }
