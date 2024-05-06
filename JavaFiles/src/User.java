@@ -8,7 +8,7 @@ public abstract class User
         this.name = name;
         this.username = username;
         this.password = password;
-        this.enrollment = new EnrollmentManager();
+        this.enrollment = EnrollmentManager.getManager();
     }
 	
 	boolean loginVerification(String pw)

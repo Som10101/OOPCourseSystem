@@ -24,6 +24,7 @@ public class Admin extends User {
         else
         {
         	enrollment.removeCourse(c);
+        	System.out.println("Course Successfully Deleted!");
         }
     }
     
@@ -36,8 +37,10 @@ public class Admin extends User {
         else
         {
         	enrollment.removeCourse(c);
+        	System.out.println("Course Successfully Deleted!");
         }
     }
+
 
     @Override
     public void viewCourses() 

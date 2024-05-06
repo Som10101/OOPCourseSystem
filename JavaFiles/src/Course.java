@@ -14,6 +14,7 @@ public class Course
 		this.courseCode = cC;
 		this.courseDescription = cD;
 		this.professor = p;
+		p.coursesTaught.add(this);
 		this.studentList = new ArrayList<Pair>();
 				
 	}
@@ -34,6 +35,13 @@ public class Course
 		System.out.println("-------------------------------------");
 		System.out.println(courseName + "       " + courseCode);
 
+	}
+	public void printStudentList()
+	{
+		for(int i = 0; i < studentList.size(); i++)
+		{
+			System.out.println("- " + studentList.get(i).student.getName() + "  --- " + studentList.get(i).grade + "%");
+		}
 	}
 	
 	public int addStudent(Student s)
@@ -64,6 +72,19 @@ public class Course
 		return null;
 	}
 
+	public Student getStudent(String name)
+	{
+		for(int i = 0; i < studentList.size(); i++)
+		{
+			if(studentList.get(i).student.getName().equals(name))
+			{
+				Pair p = studentList.get(i);
+				return p.student;
+			}
+		}
+		return null;
+	}
+	
 	public int getGrade(Student s)
 	{
 		for(int i = 0; i < studentList.size(); i++)
