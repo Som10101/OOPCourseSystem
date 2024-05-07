@@ -10,7 +10,6 @@ The program comes preloaded with students, professors and an administrator to de
 
 Format is "username", "password"
 
-
 Professors
 
 "alice01", "abc123"
@@ -31,4 +30,6 @@ Students
 
 You are also able to create new logins at any of the three permission levels.
 
+
+!!! For the sequence diagrams, since our memeber implemented bonus features such as enroll from courses that aren't initally desigend in the use cases, these bonus features won't have sequence diagrams. But all designed and core functionalities have complete and correct class diagrams, sequence diagrams and use case diagrams.
 
